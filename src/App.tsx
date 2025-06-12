@@ -46,7 +46,7 @@ export default function RoleCreationFormMobileRearranged() {
     world: '',
     userRelation: '',
     /* 语言习惯 */
-    addressUser: '', // 如何称呼用户
+    addressUser: '',
     greeting: '',
     catchphrase: '',
     examples: [''] as string[],
@@ -60,7 +60,7 @@ export default function RoleCreationFormMobileRearranged() {
   };
   const addExample = () => form.examples.length < 3 && update('examples', [...form.examples, '']);
 
-  // 添加事件处理函数类型
+  // 事件处理函数
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     update('avatar', e.target.files?.[0] || null);
   };
@@ -77,8 +77,8 @@ export default function RoleCreationFormMobileRearranged() {
     update('name', e.target.value);
   };
 
-  const handleGenderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    update('gender', e.target.value);
+  const handleGenderChange = (gender: string) => {
+    update('gender', gender);
   };
 
   const handleOtherGenderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -125,7 +125,7 @@ export default function RoleCreationFormMobileRearranged() {
     update('world', e.target.value);
   };
 
-  const handleUserRelationChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleUserRelationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     update('userRelation', e.target.value);
   };
 
