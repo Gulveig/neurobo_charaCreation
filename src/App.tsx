@@ -18,7 +18,7 @@ import { Label } from '@/components/ui/label';
 /**
  * RoleCreationFormMobile (重排版) — 水蜜桃粉主题 · 窄屏优化
  * 更新：2025‑07‑02
- * 说明：按“角色基本设定 / 角色补充设定 / 角色语言习惯”三大分区重新排布原有输入项，其余交互与样式保持一致。
+ * 说明：按"角色基本设定 / 角色补充设定 / 角色语言习惯"三大分区重新排布原有输入项，其余交互与样式保持一致。
  */
 export default function RoleCreationFormMobileRearranged() {
   type Steps = 'basic' | 'supplement' | 'language';
@@ -60,6 +60,91 @@ export default function RoleCreationFormMobileRearranged() {
   };
   const addExample = () => form.examples.length < 3 && update('examples', [...form.examples, '']);
 
+  // 添加事件处理函数类型
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    update('avatar', e.target.files?.[0] || null);
+  };
+
+  const handleVoiceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    update('voice', e.target.files?.[0] || null);
+  };
+
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    update('language', e.target.value);
+  };
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    update('name', e.target.value);
+  };
+
+  const handleGenderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    update('gender', e.target.value);
+  };
+
+  const handleOtherGenderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    update('otherGender', e.target.value);
+  };
+
+  const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    update('age', e.target.value);
+  };
+
+  const handleBirthdayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    update('birthday', e.target.value);
+  };
+
+  const handleMbtiChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    update('mbti', e.target.value);
+  };
+
+  const handleBloodTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    update('bloodType', e.target.value);
+  };
+
+  const handleStanceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    update('stance', e.target.value);
+  };
+
+  const handleAppearanceChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    update('appearance', e.target.value);
+  };
+
+  const handlePersonalityChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    update('personality', e.target.value);
+  };
+
+  const handleIdentityChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    update('identity', e.target.value);
+  };
+
+  const handleSupplementalChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    update('supplemental', e.target.value);
+  };
+
+  const handleWorldChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    update('world', e.target.value);
+  };
+
+  const handleUserRelationChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    update('userRelation', e.target.value);
+  };
+
+  const handleAddressUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    update('addressUser', e.target.value);
+  };
+
+  const handleGreetingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    update('greeting', e.target.value);
+  };
+
+  const handleCatchphraseChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    update('catchphrase', e.target.value);
+  };
+
+  const handleExampleChange = (i: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateExample(i, e.target.value);
+  };
+
   useEffect(() => {
     if (!form.avatar) {
       setAvatarUrl(null);
@@ -94,14 +179,14 @@ export default function RoleCreationFormMobileRearranged() {
       {/* Avatar */}
       <div className="flex flex-col items-start">
         <Label className="mb-1">角色头像 <span className="text-pink-400">*</span></Label>
-        <Input type="file" accept="image/*" onChange={e => update('avatar', e.target.files?.[0] || null)} />
+        <Input type="file" accept="image/*" onChange={handleFileChange} />
         {avatarUrl && <img src={avatarUrl} className="mt-3 rounded-full border object-cover" style={{ width: '50vw', maxWidth: 140, height: '50vw', maxHeight: 140 }} />}
       </div>
 
       {/* Language */}
       <div>
         <Label className="mb-1 block">角色常用语言 <span className="text-pink-400">*</span></Label>
-        <select value={form.language} onChange={e => update('language', e.target.value)} className="w-full p-2 border rounded bg-white focus:ring-pink-400 focus:border-pink-400 text-sm">
+        <select value={form.language} onChange={handleLanguageChange} className="w-full p-2 border rounded bg-white focus:ring-pink-400 focus:border-pink-400 text-sm">
           <option value="">请选择语言</option>
           {['中文', '英文', '日语', '其他'].map(l => (
             <option key={l}>{l}</option>
@@ -112,14 +197,14 @@ export default function RoleCreationFormMobileRearranged() {
       {/* Voice */}
       <div className="flex flex-col">
         <Label className="mb-1">角色语音 (≤15s)</Label>
-        <Input type="file" accept="audio/mp3,audio/wav" onChange={e => update('voice', e.target.files?.[0] || null)} />
+        <Input type="file" accept="audio/mp3,audio/wav" onChange={handleVoiceChange} />
         <span className="text-xs text-gray-400 mt-1">支持 MP3/WAV，时长 ≤15 秒</span>
       </div>
 
       {/* Name */}
       <div>
         <Label>角色名称 <span className="text-pink-400">*</span></Label>
-        <FullInput value={form.name} onChange={e => update('name', e.target.value)} placeholder="角色名称" />
+        <FullInput value={form.name} onChange={handleNameChange} placeholder="角色名称" />
       </div>
 
       {/* Gender */}
@@ -127,23 +212,23 @@ export default function RoleCreationFormMobileRearranged() {
         <Label>性别 <span className="text-pink-400">*</span></Label>
         <div className="flex gap-2 mt-1 flex-wrap">
           {['男', '女', '其他'].map(g => (
-            <PinkBtn key={g} size="sm" variant={form.gender === g ? 'default' : 'outline'} className={form.gender === g ? '' : 'bg-white text-pink-400 border-pink-400'} onClick={() => update('gender', g)}>
+            <PinkBtn key={g} size="sm" variant={form.gender === g ? 'default' : 'outline'} className={form.gender === g ? '' : 'bg-white text-pink-400 border-pink-400'} onClick={() => handleGenderChange(g)}>
               {g}
             </PinkBtn>
           ))}
         </div>
-        {form.gender === '其他' && <FullInput className="mt-2" value={form.otherGender} onChange={e => update('otherGender', e.target.value)} placeholder="自定义性别" />}
+        {form.gender === '其他' && <FullInput className="mt-2" value={form.otherGender} onChange={handleOtherGenderChange} placeholder="自定义性别" />}
       </div>
 
       {/* Age & Birthday */}
       <div className="flex flex-col gap-2">
         <div>
           <Label>年龄</Label>
-          <FullInput value={form.age} onChange={e => update('age', e.target.value)} />
+          <FullInput value={form.age} onChange={handleAgeChange} />
         </div>
         <div>
           <Label>生日</Label>
-          <FullInput type="date" value={form.birthday} onChange={e => update('birthday', e.target.value)} />
+          <FullInput type="date" value={form.birthday} onChange={handleBirthdayChange} />
         </div>
       </div>
 
@@ -151,7 +236,7 @@ export default function RoleCreationFormMobileRearranged() {
       <div className="flex flex-col gap-2">
         <div>
           <Label>MBTI</Label>
-          <select value={form.mbti} onChange={e => update('mbti', e.target.value)} className="w-full p-2 border rounded bg-white focus:ring-pink-400 focus:border-pink-400 text-sm">
+          <select value={form.mbti} onChange={handleMbtiChange} className="w-full p-2 border rounded bg-white focus:ring-pink-400 focus:border-pink-400 text-sm">
             <option value="">选择 MBTI</option>
             {MBTI.map(t => (
               <option key={t}>{t}</option>
@@ -160,7 +245,7 @@ export default function RoleCreationFormMobileRearranged() {
         </div>
         <div>
           <Label>血型</Label>
-          <select value={form.bloodType} onChange={e => update('bloodType', e.target.value)} className="w-full p-2 border rounded bg-white focus:ring-pink-400 focus:border-pink-400 text-sm">
+          <select value={form.bloodType} onChange={handleBloodTypeChange} className="w-full p-2 border rounded bg-white focus:ring-pink-400 focus:border-pink-400 text-sm">
             <option value="">选择</option>
             {['A', 'B', 'AB', 'O', '其他'].map(b => (
               <option key={b}>{b}</option>
@@ -172,22 +257,22 @@ export default function RoleCreationFormMobileRearranged() {
       {/* Stance */}
       <div>
         <Label>立场</Label>
-        <FullInput value={form.stance} onChange={e => update('stance', e.target.value)} placeholder="例如：混沌中立 / 守序善良" />
+        <FullInput value={form.stance} onChange={handleStanceChange} placeholder="例如：混沌中立 / 守序善良" />
       </div>
 
       {/* === 核心必填：外貌 / 性格 / 身份 === */}
       <div className="space-y-4 pt-4 border-t border-dashed border-pink-200">
         <div>
           <Label>外貌 <span className="text-pink-400">*</span></Label>
-          <FullTextarea rows={4} value={form.appearance} onChange={e => update('appearance', e.target.value)} placeholder="身高体型、发型发色、瞳色…" />
+          <FullTextarea rows={4} value={form.appearance} onChange={handleAppearanceChange} placeholder="身高体型、发型发色、瞳色…" />
         </div>
         <div>
           <Label>性格 <span className="text-pink-400">*</span></Label>
-          <FullTextarea rows={4} value={form.personality} onChange={e => update('personality', e.target.value)} placeholder="性格、优缺点、兴趣爱好…" />
+          <FullTextarea rows={4} value={form.personality} onChange={handlePersonalityChange} placeholder="性格、优缺点、兴趣爱好…" />
         </div>
         <div>
           <Label>身份 <span className="text-pink-400">*</span></Label>
-          <FullTextarea rows={4} value={form.identity} onChange={e => update('identity', e.target.value)} placeholder="种族、职业、阶层…" />
+          <FullTextarea rows={4} value={form.identity} onChange={handleIdentityChange} placeholder="种族、职业、阶层…" />
         </div>
       </div>
     </div>
@@ -198,15 +283,15 @@ export default function RoleCreationFormMobileRearranged() {
     <div className="space-y-6 pb-6">
       <div>
         <Label>补充设定</Label>
-        <FullTextarea rows={4} value={form.supplemental} onChange={e => update('supplemental', e.target.value)} placeholder="角色经历、生活习惯…" />
+        <FullTextarea rows={4} value={form.supplemental} onChange={handleSupplementalChange} placeholder="角色经历、生活习惯…" />
       </div>
       <div>
         <Label>与用户的关系</Label>
-        <FullInput value={form.userRelation} onChange={e => update('userRelation', e.target.value)} placeholder="如：挚友 / 上下级 / 主仆…" />
+        <FullInput value={form.userRelation} onChange={handleUserRelationChange} placeholder="如：挚友 / 上下级 / 主仆…" />
       </div>
       <div>
         <Label>世界观</Label>
-        <FullTextarea rows={4} value={form.world} onChange={e => update('world', e.target.value)} placeholder="时代背景、文化冲突…" />
+        <FullTextarea rows={4} value={form.world} onChange={handleWorldChange} placeholder="时代背景、文化冲突…" />
       </div>
     </div>
   );
@@ -216,21 +301,21 @@ export default function RoleCreationFormMobileRearranged() {
     <div className="space-y-6 pb-6">
       <div>
         <Label>如何称呼用户</Label>
-        <FullInput value={form.addressUser} onChange={e => update('addressUser', e.target.value)} placeholder="如：主人 / 挚友 / 阁下…" />
+        <FullInput value={form.addressUser} onChange={handleAddressUserChange} placeholder="如：主人 / 挚友 / 阁下…" />
       </div>
       <div>
         <Label>开场白</Label>
-        <FullInput value={form.greeting} onChange={e => update('greeting', e.target.value)} placeholder="角色见面时的第一句问候" />
+        <FullInput value={form.greeting} onChange={handleGreetingChange} placeholder="角色见面时的第一句问候" />
       </div>
       <div>
         <Label>口癖</Label>
-        <FullInput value={form.catchphrase} onChange={e => update('catchphrase', e.target.value)} placeholder="角色常挂在嘴边的话" />
+        <FullInput value={form.catchphrase} onChange={handleCatchphraseChange} placeholder="角色常挂在嘴边的话" />
       </div>
       <div className="space-y-2">
         <Label>【示例对话】</Label>
         <p className="text-xs text-gray-400">可用作角色说话风格参考的代表性话语或台词摘录，不超过三条</p>
         {form.examples.map((ex, i) => (
-          <FullInput key={i} value={ex} onChange={e => updateExample(i, e.target.value)} placeholder={`示例 ${i + 1}`} />
+          <FullInput key={i} value={ex} onChange={handleExampleChange(i)} placeholder={`示例 ${i + 1}`} />
         ))}
         {form.examples.length < 3 && (
           <PinkBtn variant="outline" size="sm" className="bg-white text-pink-400 border-pink-400" onClick={addExample}>
